@@ -13,27 +13,27 @@ USER WINDOWS (PDF Reader / IDE / Chrome)
           │  Continuous background capture
           ▼
 ┌─────────────────────────────────────────────────────┐
-│           LOCAL PYTHON SERVICE (FastAPI)            │
-│                                                     │
-│  Thread 1: AudioIngestion                           │
+│           LOCAL PYTHON SERVICE (FastAPI)             │
+│                                                      │
+│  Thread 1: AudioIngestion                            │
 │  ┌──────────────────────┐   Audio Bytes (16kHz PCM) │
-│  │ PyAudio mic stream   │ ─────────────────────────►│
-│  │ VAD + silence filter │                           │
-│  └────────┬─────────────┘                           │
-│           │ Barge-in interrupt                      │
-│           ▼                                         │
+│  │ PyAudio mic stream   │ ──────────────────────────►│
+│  │ VAD + silence filter │                            │
+│  └────────┬─────────────┘                            │
+│           │ Barge-in interrupt                       │
+│           ▼                                          │
 │  Thread 3: AudioOutput  ◄── Audio Bytes (24kHz PCM) │
-│  ┌──────────────────────┐                           │
-│  │ Buffer + queue       │                           │
-│  │ Barge-in stop        │                           │
-│  └──────────────────────┘                           │
-│                                                     │
+│  ┌──────────────────────┐                            │
+│  │ Buffer + queue       │                            │
+│  │ Barge-in stop        │                            │
+│  └──────────────────────┘                            │
+│                                                      │
 │  Thread 2: WebSocketManager ◄──► Gemini Live API    │
-│  ┌──────────────────────┐    Bidirectional WebSocket│
-│  │ asyncio EventLoop    │                           │
+│  ┌──────────────────────┐    Bidirectional WebSocket │
+│  │ asyncio EventLoop    │                            │
 │  │ Send/Receive audio   │◄── Tools: Google Search   │
 │  │ Function calling     │◄── RAG: ChromaDB + PDFs   │
-│  └──────────────────────┘                           │
+│  └──────────────────────┘                            │
 └─────────────────────────────────────────────────────┘
 ```
 
